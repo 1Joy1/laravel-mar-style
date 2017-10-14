@@ -1,0 +1,655 @@
+@font-face {
+	font-family: "Aurora Script";
+	src: url(../fonts/AuroraScript.ttf);
+}
+
+html {
+	width: auto;
+	height: 100%;
+	overflow:  hidden;
+	font-size: 18px;
+}
+
+body {
+	background: black;
+	margin: 0px;
+	width: auto;
+	height: 100%;
+}
+
+.frame {
+	display: none; /*fadeIn in html JQ function)*/
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+	position: relative;
+	color: #FFF;
+	background-image: url(../img/BG_albom.jpg);
+	background-size: 100% 100%;
+}
+
+.background {
+	height: 100%;
+	width: auto;
+}
+
+.layer2 {
+	top: 0px;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.header {
+	height: 27%;
+	width: 100%;
+	position: relative;
+	text-align: right;
+}
+
+
+.foto {
+	bottom: 0px;
+	left: 15px;
+	position: absolute;
+	//display: none;
+	height: 60%;
+}
+
+/*@media screen and (orientation: landscape) {*/
+  p.name {
+    font-family: Aurora Script;
+	transform: scaley(1.2);
+	-ms-transform: scaley(1.2);
+	-webkit-transform: scaley(1.2);
+	-moz-transform: scaley(1.2);
+	-o-transform: scaley(1.2);
+	font-size: 4.2em;
+	text-shadow: 3px 2px 1px #000, 4px 3px 3px #000;
+	position: absolute;
+	width: 68%;
+	bottom: 2px;
+	right: 0px;
+	text-align: center;
+	margin: 0px;
+	margin-bottom: 5px;
+	}
+/*}*/
+
+
+
+
+.profession {
+	font-family: Arial;
+	text-shadow: 1px 2px 1px #000, 2px 3px 2px #000;
+	font-size: 1.25em;
+	position: absolute;
+	width: 65%;
+	bottom: 0px;
+	right: 0px;
+	text-align: center;
+	margin: 0px;
+}
+
+.menu {
+	height: 7%;
+	width: 100%;
+	position: relative;
+	font-size: 1em;
+}
+
+
+
+.main {
+	//display:none;
+	width: 100%;
+	height: 57%;
+	position: absolute;
+	top: 34%;
+}
+
+.wrap {
+	right: 4%;
+	position: absolute;
+	width: 60%;
+	height: 100%;
+}
+
+.portfolio > .wrap {
+	width: 50%;
+}
+
+.feadback > .wrap {
+	width: 50%;
+}
+
+.main > .wrap > p {
+	font-family: Times New Roman;
+	position: absolute;
+	font-size: 1.2em;
+	right: 0px;
+}
+
+.servis_description {
+	top: 10%;
+	text-shadow: 3px 2px 1px #000, 4px 3px 3px #000;
+	font-style: italic;
+	display: none;
+	margin-right: 5%;
+}
+
+.tel {
+	text-align: right;
+	top: 38%;
+	text-shadow: 1px 1px 1px #000, 1px 1px 1px #000;
+	font-style: italic;
+	display: none;
+}
+
+
+
+/*******************Блок Портфолио********************/
+.portfolio {
+	display: none;
+	width: 100%;
+	height: 57%;
+	position: absolute;
+	top: 34%;
+	font-family: Times New Roman;
+	font-style: normal;
+	text-align: center;
+}
+
+.portphol-main {
+	width: 25%;
+	height: 62%;
+	float: left;
+	font-size: 0.7em;
+}
+
+.portphol-main img {
+	width: 90%;
+	margin-top: 12%;
+}
+
+.portphol-main a {
+	text-decoration: none;
+	color: #ABA089;
+}
+
+.portphol-main p {
+	text-decoration: none;
+	color: #ABA089;
+}
+
+.portphol-main-all {
+	width: 100%;
+	height: 20%;
+	float: left;
+}
+.portphol-main-all a {
+	text-decoration: none;
+	color: #ABA089;
+}
+
+.portfolio p {
+	color: #ABA089;
+	margin: 0px;
+}
+
+.portphol-main-all a:hover {
+	text-shadow: 1px 1px 0px #000, 2px 2px 1px #000;
+	color: #ffffff;
+}
+
+.portphol-main a:hover p {
+	text-shadow: 1px 1px 0px #000, 2px 2px 1px #000;
+	color: #ffffff;
+}
+
+
+
+/*******************Блок Услуги********************/
+.services {
+	display: none;
+	width: 100%;
+	height: 57%;
+	position: absolute;
+	top: 34%;
+	font-family: Times New Roman;
+	font-style: italic;
+	font-size: 1em;
+	text-shadow: 1px 1px 0px #000, 2px 2px 1px #000;
+}
+
+.uslugi {
+	margin-top: 3%;
+	margin-right: 21%;
+	position: relative;
+	float: right;
+	font-size: 1em;
+}
+
+.uslugi ul {
+	list-style-type: none;
+	font-size: 1em;
+	line-height: 90%;
+}
+
+.uslugi li {
+	font-size: 0.9em;
+	white-space: nowrap;
+}
+
+.uslugi-cosmetics {
+	font-size: 0.7em;
+	position: relative;
+	top: 13%;
+	line-height: 100%;
+	float: right;
+	white-space: nowrap;
+	margin-right: 0,7em;
+}
+
+
+
+/*******************Блок Отзывы********************/
+.feadback {
+	width: 100%;
+	height: 57%;
+	position: absolute;
+	top: 34%;
+	display: none;
+	font-family: Times New Roman;
+	text-align: center;
+}
+
+.feadback #leave_feedback {
+	font-style: italic;
+	margin-top: 0.2em;
+	margin-bottom: 0.5em;
+
+}
+
+.feadback #leave_feedback a {
+	color: #ffffff;
+}
+
+.feadback #leave_feedback a:hover{
+	text-shadow: 1px 1px 0px #000, 2px 2px 1px #000;
+}
+
+#comments_block {
+	text-align: left;
+	font-size:0.8em;
+	height:85%;
+	width:100%;
+	overflow: auto;
+	text-shadow: 2px 2px 1px #000, 2px 2px 1px #000;
+}
+
+#comments_block span{
+	font-style: italic;
+}
+
+.wrapmessage {
+	width: 100%;
+	float: left;
+}
+
+.wrapmessage > .left {
+	float: left;
+}
+
+.wrapmessage > .right {
+	float: right;
+}
+
+.message {
+	width: 85%;
+}
+
+
+
+/*******************Блок Ссылки********************/
+.link {
+	width: 100%;
+	height: 57%;
+	position: absolute;
+	top: 34%;
+	display: none;
+	font-family: Times New Roman;
+	font-size: 1em;
+	text-shadow: 1px 1px 1px #000, 1px 1px 1px #000;
+}
+
+.link p {
+	font-size: 1em;
+	color: #F0E9E1;
+
+}
+
+.link span {
+	font-size: 1em;
+}
+
+.link a {
+	text-decoration: none;
+	white-space: nowrap;
+	color: #FCE8F7;
+	font-style: italic;
+	font-size: 1em;
+}
+
+.link a:hover {
+	text-shadow: 2px 2px 1px #000, 3px 3px 2px #000;
+	color: #E2FFFF
+}
+
+.pml1{
+	margin-left: 25%;
+}
+.pml2{
+	margin-left: 18%;
+}
+.pml3{
+	margin-left: 32%;
+}
+.pml4{
+	margin-left: 27%;
+}
+.pml5{
+	margin-left: 22%;
+}
+.spl1{
+	margin-left: 10%;
+}
+.spl2{
+	margin-left: 20%;
+}
+
+
+
+/********************Блок Меню*********************/
+.top-menu {
+	height: 100%;
+	float: right;
+	position: relative;
+	right: 5%;
+	z-index: 3;
+	font-family: Times New Roman;
+}
+
+.top-menu > div {
+	float: left;
+	margin: 6px 10px;
+	position: absolute;
+	top: 0.6em;
+}
+
+#menu-main{
+	right: 22em;
+}
+#menu-portfol{
+	right: 15em;
+}
+#menu-service{
+	right: 10em;
+}
+#menu-feedback{
+	right: 5em;
+}
+#menu-link{
+	right: 0.1em;
+}
+
+.hov {
+	position: absolute;
+	z-index: 5;
+	width: 100%;
+	height: 100%;
+	//color: #ffffff;
+	color: rgba(255, 255, 255, 0);
+}
+
+.menu-el {
+	transition: all 0.5s cubic-bezier(.7,-1.41,.6,1);
+}
+
+.hov:hover  ~ .menu-el {
+	transform: scale(1.3);
+	-webkit-transform: scale(1.3);
+	-moz-transform: scale(1.3);
+}
+
+.menu-el span {
+	color: #897E68;
+	transition: all 0.5s cubic-bezier(.7,-1.41,.6,1);
+}
+
+.hov:hover ~ .menu-el span {
+	color: #FFFFFF;
+}
+
+.hov:hover ~ .menu-el .sneg1,
+.hov:hover ~ .menu-el .sneg2,
+.hov:hover ~ .menu-el .sneg3 {
+	height: 50%;
+	top: -29%;
+	left: -12%;
+	opacity: 0.8;
+}
+
+.sneg3 {
+	position: absolute;
+	height: 30%;
+	top: 80%;
+	left: -80%;
+	filter: alpha(opacity=0);
+	opacity: 0.0;
+	transition: all 0.8s ;
+}
+.sneg2 {
+	position: absolute;
+	height: 30%;
+	top: -50%;
+	left: 40%;
+	filter: alpha(opacity=0);
+	opacity: 0.0;
+	transition: all 0.8s ;
+}
+.sneg1 {
+	position: absolute;
+	height: 30%;
+	top: -300%;
+	left: -40%;
+	filter: alpha(opacity=0);
+	opacity: 0.0;
+	transition: all 0.8s ;
+}
+
+
+/******************** Блок Футер *******************/
+.futer {
+	position: absolute;
+	width: 100%;
+	height: 9%;
+	bottom: 0px;
+}
+
+.futer > p {
+	font-family: Times New Roman;
+	text-shadow: 1px 1px 1px #000, 1px 1px 1px #000;
+	font-size: 1.2em;
+	font-style: italic;
+	z-index: 4;
+	right: 32%;
+	text-align: center;
+	position: absolute;
+	margin: 0px;
+}
+
+
+
+
+
+
+@media screen and (max-width: 980px) {
+
+	.link p {
+		font-size: 0.9em;
+	}
+
+	.pml1{
+		margin-left: 20%;
+	}
+
+	.services {
+		font-size: 1.1em;
+	}
+
+	.uslugi-cosmetics {
+		font-size: 0.6em;
+	}
+
+}
+
+@media screen and (orientation: portrait) {
+
+	.header{
+		height: 22%;
+	}
+	.frame{
+		background-image: url(../img/BG_port.jpg);
+		background-size: 100% 100%;
+	}
+	p.name{
+		width: 100%;
+		margin-bottom: 0px;
+		margin-top: 50px;
+		bottom: inherit;
+	}
+	.profession {
+		width: 97%;
+	}
+	.wrap{
+		width: 100%;
+	}
+	.main{
+		top: 30%;
+	}
+	.portfolio{
+		top: 30%;
+	}
+	.portfolio > .wrap{
+		right: 0%;
+		margin: auto;
+		position: relative;
+		width: 90%;
+	}
+	.services{
+		top: 30%;
+	}
+	.uslugi-cosmetics {
+    	font-size: 0.7em;
+	}
+	.feadback{
+		top: 30%;
+	}
+	.feadback > .wrap{
+		right: 0%;
+		margin: auto;
+		position: relative;
+		width: 90%;
+	}
+	.futer > p {
+		position: relative;
+		right: inherit;
+	}
+	.link{
+		top: 30%;
+	}
+	.foto{
+		bottom: 0px;
+		left: 15px;
+		position: absolute;
+		display: block;
+		height: 60%;
+	}
+}
+
+
+@media screen and (orientation: portrait) and (max-width: 980px){
+
+	p.name{
+		font-size: 3.2em;
+		bottom: 2px;
+	}
+	.profession{
+		font-size: 0.9em;
+	}
+	.menu{
+		font-size: 0.7em;
+	}
+	.main .wrap {
+    	width: 90%;
+		font-size: 0.9em;
+	}
+	.services .wrap {
+    	width: 90%;
+		font-size: 0.9em;
+	}
+	.feadback .wrap {
+    	width: 90%;
+		font-size: 0.9em;
+	}
+	.link .wrap {
+		width: 90%;
+		font-size: 0.8em;
+	}
+	.uslugi-cosmetics{
+		//width: 900px;
+		//height: 100%;
+		//float: none;
+		white-space: inherit;
+	}
+	.pml1{
+		margin-left: 0%;
+	}
+	.pml2{
+		margin-left: 18%;
+	}
+	.pml3{
+		margin-left: 6%;
+	}
+	.pml4{
+		margin-left: 27%;
+	}
+	.pml5{
+		margin-left: 22%;
+	}
+	.spl1{
+		margin-left: 8%;
+	}
+	.spl2{
+		margin-left: 17%;
+	}
+}
+
+@media screen and (orientation: portrait) and (max-width: 800px){
+
+	p.name{
+		font-size: 3.0em;
+		bottom: 2px;
+	}
+}
+
+@media screen and (orientation: portrait) and (max-width: 360px){
+
+	p.name{
+		font-size: 2.8em;
+		bottom: 2px;
+	}
+}

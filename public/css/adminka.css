@@ -1,0 +1,87 @@
+img {
+    display: block;
+    height: 110px;
+    margin: auto;
+}
+
+table {
+    font-size: 0.8em;
+    float: left;
+}
+
+.itemblock {
+    height: 110px;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.photoblock {
+    width: 330px;
+    border-right: 1px solid black;
+    float: left
+}
+
+.checkboxgroup {
+    float: left;
+    border-right: 1px solid black;
+    height: 110px;
+}
+
+.buttongroup {
+    float: left;
+    width: 250px
+}
+
+.buttongroup input {
+    width: 240px;
+}
+
+.enable {
+    opacity: 1;
+}
+
+.disable {
+    opacity: 0.2;
+}
+
+.buttonhangeitem {
+    margin: 5px 5px 3px 5px;
+}
+
+.buttondelgallery {
+    margin: 3px 5px;
+}
+
+.buttonhretgallery {
+    margin: 3px 5px;
+}
+
+#loader {
+    display: none;
+    position: fixed;
+    top: 0px;
+    margin: auto;
+    width: 900px;
+    height: 100%;
+    background-color: #FFFFFFE6;
+}
+
+#answerdelfile {
+    display: none;
+    position: fixed;
+    top: 0px;
+    margin: auto;
+    width: 900px;
+    height: 100%;
+    background-color: #FFFFFFE6;
+}
+
+.logout {
+    width: 890px;
+    height: 30px;
+    margin-bottom: -5px;";
+}
+.logout input{
+    float: right;
+    width: 150px;
+}
