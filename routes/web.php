@@ -47,7 +47,7 @@ Route::get('/home', ['as'=>'home', function () {
 Route::resource('photo', 'PhotoController', ['only' => ['index', 'show']]);
 
 Route::get('group/{name}/photo', 'GroupController@indexGroupPhoto');
-//Route::get('group/{name}/photo/{id}', 'GroupController@showGroupPhoto');
+
 Route::resource('group', 'GroupController', ['only' => ['index', 'show']]);
 
 Route::resource('message', 'MessageController', ['only' => ['index', 'create', 'store']]);

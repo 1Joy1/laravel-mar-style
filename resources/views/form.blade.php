@@ -1,4 +1,4 @@
-<form id="form" action="/message" method="post" target="otvet" onsubmit="afterSendForm(this);">
+<form id="form" action="{{ route('message.store') }}" method="post" target="otvet" onsubmit="afterSendForm(this);">
     {{ csrf_field() }}
     <p style="text-align: left">Ваше имя:<br>
         <input id="form_name" name="name" value="" size="50" type="text" required="required">
