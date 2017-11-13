@@ -1,0 +1,8 @@
+{
+    "Token is not valid or the session time has expired. Login again.": "Токен недействителен или время сеанса истекло. Войдите снова.",
+    "Delete completed.": "Удаление завершено.",
+    "This photo does not belong to this group.": "Эта фотография не принадлежит этой группе.",
+    "Photo not found.": "Фотография не найдена.",
+    "This photo already in this group.": "Эта фотография уже в этой группе.",
+    "Object [ :name ] not found.": "Объект [ :name ] не найден."
+}

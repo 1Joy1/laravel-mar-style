@@ -19,4 +19,12 @@ class Photo extends Model
     {
         return $this->belongsToMany('App\Group');
     }
+
+
+    public function delete()
+    {
+        $this->groups()->detach();
+
+        parent::delete();
+    }
 }

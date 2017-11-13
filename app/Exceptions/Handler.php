@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +49,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //dump($exception);
+        if ($exception instanceof ModelNotFoundException) {
+
+            $model = $exception->getModel();
+
+            if ($model == 'App\Photo') {
+                $jsonResponse = ['message' => [__('Photo not found.')] ];
+            } else {
+                $jsonResponse = ['message' => [__('Object [ :name ] not found.' , ['name' => $model])] ];
+            }
+
+            return response($jsonResponse, 404);
+        }
+
         return parent::render($request, $exception);
     }
 }

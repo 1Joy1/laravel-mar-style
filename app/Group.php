@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Facades\Storage;
+
 class Group extends Model
 {
     //
@@ -11,7 +13,7 @@ class Group extends Model
 
 
 
-    protected $fillable = ['name', 'photo_src', 'display_name',];
+    protected $fillable = ['name', 'photo_path', 'display_name',];
 
 
 
@@ -20,6 +22,17 @@ class Group extends Model
 
 
     public $incrementing = false;
+
+
+
+    protected $appends = array('photo_src');
+
+
+
+    public function getPhotoSrcAttribute() {
+
+        return Storage::url($this->photo_path);
+    }
 
 
 

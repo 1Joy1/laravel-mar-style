@@ -53,7 +53,6 @@ class MessageController extends Controller
         $message = new Message;
         $message->name = $request->name;
         $message->email = $request->email;
-        $message->name = $request->name;
         $message->text = $request->message;
         $message->ip = $request->ip();
 

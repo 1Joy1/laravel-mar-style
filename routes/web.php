@@ -11,18 +11,18 @@
 |
 */
 //use App\Group;
-Route::get('/', function () {
+Route::get('/test', function () {
     echo "<pre>";
     //echo App::getLocale();
     //print_r(App\Message::where("id", 3)->select('text')->get()) ;
     //return view('welcome');
 });
 
-Route::get('/home', ['as'=>'home', function () {
+Route::get('/', function () {
 
     $messages = App\Message::all();
 
-    $groups = App\Group::select('name', 'photo_src', 'display_name')->get();
+    $groups = App\Group::all();
 
 
     foreach ($groups as $group) {
@@ -40,7 +40,7 @@ Route::get('/home', ['as'=>'home', function () {
                          'portfol' => $portfol,
                          'messages'=> $messages,
                         ]);
-}]);
+});
 
 
 
@@ -51,3 +51,17 @@ Route::get('group/{name}/photo', 'GroupController@indexGroupPhoto');
 Route::resource('group', 'GroupController', ['only' => ['index', 'show']]);
 
 Route::resource('message', 'MessageController', ['only' => ['index', 'create', 'store']]);
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
+    Route::get('/', 'DashboardController@index')->name('admin.index');
+    Route::put('photo/{id}/attach/group','PhotoController@attachGroup');
+    Route::put('photo/{id}/detach/group','PhotoController@detachGroup');
+    Route::resource('photo', 'PhotoController', ['as'=>'admin', 'except'=>['show', 'create', 'edit']]);
+    Route::resource('group', 'GroupController', ['as'=>'admin', 'except'=>['destroy', 'show', 'store', 'create', 'edit']]);
+    Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['show', 'store', 'create', 'edit']]);
+
+});

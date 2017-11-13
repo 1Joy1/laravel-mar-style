@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupPhotoTable extends Migration
+class AddUniqueIndexPhotoIdGroupName extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,21 @@ class CreateGroupPhotoTable extends Migration
      */
     public function up()
     {
+        Schema::table('group_photo', function (Blueprint $table) {
+            $table->unique(['group_name','photo_id']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+
+        Schema::dropIfExists('group_photo');
+
         Schema::create('group_photo', function (Blueprint $table) {
             $table->increments('id');
 
@@ -24,15 +39,7 @@ class CreateGroupPhotoTable extends Migration
 
             $table->timestamps();
         });
-    }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('group_photo');
+
     }
 }
