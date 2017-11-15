@@ -44,7 +44,7 @@ class GroupController extends Controller
             return response($jsonResponse, 400);
         }
 
-        if (isset($request['file'])) {
+        if (isset($request['file'])) { //if ($request->has('name')) {
 
             $ext = $request->file('file')->getClientOriginalExtension();
 
@@ -62,7 +62,7 @@ class GroupController extends Controller
             }
         }
 
-        if (isset($request['display_name'])) {
+        if (isset($request['display_name'])) { //if ($request->has('name')) {
 
             $group->display_name = $request['display_name'];
         }

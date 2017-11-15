@@ -36,7 +36,7 @@ $( document ).ready(function(){
 
 
 
-    $('input[data-toggle="tooltip"]').tooltip({title: "Перед отправкой нужно выбрать файл", trigger: "manual"});
+    $('input[data-toggle="tooltip"]').tooltip({title: "Перед отправкой нужно выбрать файлы", trigger: "manual"});
 
 
 
@@ -48,10 +48,11 @@ $( document ).ready(function(){
             formData = new FormData(this),
             url = $(this).attr('action');
 
-            if (!formData.get('file')) {
+            /*if (!formData.get('file') && !formData.getAll('file[]')[0]) {
                 $('input[data-toggle="tooltip"]').tooltip('show');
                 return;
-            }
+            }*/
+
 
         $('#pgb').parent('div.progress').removeClass('hidden');
 
@@ -102,6 +103,8 @@ $( document ).ready(function(){
     $('#load_file_modal').on('show.bs.modal', function (event) {
         if($(event.relatedTarget).attr('data-sourse')) {
             $('#fileform').attr('action', 'group/' + $(event.relatedTarget).attr('data-sourse'));
+        } else {
+            $('#fileform').attr('action', 'photo');
         }
     }).on('hidden.bs.modal', function(event) {
         $('#fileform').attr('action', '').trigger('reset');

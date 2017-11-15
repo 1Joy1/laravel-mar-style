@@ -46,7 +46,85 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+                                    'file' => 'required',
+                                ]);
+
+        // Реализуем поддержку multiple и простой формы загрузки файла
+        $validator->sometimes('file.*', 'file', function($input) {
+            return is_array($input->file);
+        });
+
+        $validator->sometimes('file', 'file', function($input) {
+            return !is_array($input->file);
+        });
+        /////////////////////////////////////////////////////////////
+
+        if ($validator->fails()) {
+
+            $jsonResponse = ['message' => $validator->errors()->all() ];
+
+            return response($jsonResponse, 400);
+        }
+
+
+        $files = $request->allFiles();
+
+        // Реализуем поддержку multiple и простой формы загрузки файла
+        $arr_files = is_array($files['file']) ? $files['file'] : [$files['file']];
+        /////////////////////////////////////////////////////////////
+
+        $err_mess = [];
+
+        foreach ($arr_files as $file) {
+
+            $origin_file_name = $file->getClientOriginalName();
+
+            $messages = [ 'image' => 'Файл ' . $origin_file_name . ' должен быть изображением.',
+                          'mimes' => 'Файл ' . $origin_file_name . ' должен быть файлом одного из следующих типов: :values.',
+                          'max' => 'Размер файла ' . $origin_file_name . ' не может быть более :max Килобайт(а).',
+                          'dimensions' => 'Файл ' . $origin_file_name . ' имеет недопустимые размеры изображения.',
+                        ];
+
+            $validator = Validator::make(['img_file' => $file], [
+                                'img_file' => 'image|mimes:jpeg|max:2048|dimensions:max_width=3000,max_height=3000',
+                            ], $messages);
+
+            if ($validator->passes()) {
+
+                $file_path = $file->store('img/upload', 'public');
+
+                $photo = new Photo;
+                $photo->src = $file_path;
+                $photo->src_midi = $file_path;
+                $photo->src_mini = $file_path;
+                $photo->src_mini_thumb = $file_path;
+                $photo->save();
+
+            } else {
+
+               $err_mess[] =  $validator->errors()->all();
+
+            }
+
+            $jsonResponse = ['message' => $err_mess];
+        }
+        return $photo;
+
+
+        /*[
+   [
+   "name" => "hkhj"
+   "status" => "error"
+    "error" => "ghj"
+   ],
+   [
+    'name' => "asdasd"
+    'status' => "ok"
+   ]
+]*/
+
     }
 
 

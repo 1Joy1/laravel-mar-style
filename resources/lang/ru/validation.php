@@ -112,6 +112,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'file.*' => [
+            'file' => 'В массиве файлов, должны присутствовать файлы.',
+        ],
     ],
 
     /*
@@ -132,7 +135,12 @@ return [
     */
 
     'attributes'           => [
-        //
+        'file' => 'файл',
+        //'file.*' => 'файл',
+        'display_name' => 'имя группы',
+        'name' => 'имя',
+        'text' => 'текст',
+
     ],
 
 ];

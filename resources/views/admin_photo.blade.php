@@ -116,30 +116,31 @@
             </div>
 
             <div class="modal-body">
-                <div align="center" id="upload">
+                <div align="center">
 
                     <form id="fileform" action="" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
                         <span>Выбрать файлы:</span>
                         <div class="input-group" style="width: 70%;">
                             <label class="input-group-btn">
                                 <span class="btn btn-primary" title="Выбрать файлы"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;
-                                    Обзор&hellip; <input name='file[]' type="file" style="display: none;" multiple><!--accept="image/jpeg" required="required"-->
+                                    Обзор&hellip; <input name='file[]' type="file" style="display: none;" multiple><!--accept="image/jpeg"-->
                                 </span>
                             </label>
-                            <input type="text" class="form-control" placeholder="Файлы не выбраны" readonly>
+                            <input type="text" class="form-control" placeholder="Файлы не выбраны" readonly data-toggle="tooltip">
                             <span class="input-group-btn">
                                 <button id="clear_file_form" class="btn btn-default" type="button" title="Очистить выбранные файлы."><i class="glyphicon glyphicon-trash"></i></button>
                             </span>
 
                         </div>
                         <br>
-                        <input id="send_file_form" class="btn btn-success" style="width: 150px;" type="button" value="Загрузить" />
+                        <input id="send_file_form" class="btn btn-success" style="width: 150px;" type="submit" value="Загрузить" />
                     </form>
 
                 </div>
             </div>
             <div class="progress center-block hidden" style="width: 90%;">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                <div id="pgb" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
             </div>
 
             <div class="modal-footer">
