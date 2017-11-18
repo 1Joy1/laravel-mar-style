@@ -10,6 +10,9 @@ use Route;
 use Validator;
 use App\Group;
 
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Storage;
+
 class PhotoController extends Controller
 {
     /**
@@ -47,9 +50,7 @@ class PhotoController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-                                    'file' => 'required',
-                                ]);
+        $validator = Validator::make($request->all(), ['file' => 'required']);
 
         // Реализуем поддержку multiple и простой формы загрузки файла
         $validator->sometimes('file.*', 'file', function($input) {
@@ -59,7 +60,7 @@ class PhotoController extends Controller
         $validator->sometimes('file', 'file', function($input) {
             return !is_array($input->file);
         });
-        /////////////////////////////////////////////////////////////
+
 
         if ($validator->fails()) {
 
@@ -73,9 +74,10 @@ class PhotoController extends Controller
 
         // Реализуем поддержку multiple и простой формы загрузки файла
         $arr_files = is_array($files['file']) ? $files['file'] : [$files['file']];
-        /////////////////////////////////////////////////////////////
 
         $err_mess = [];
+
+        $photos = [];
 
         foreach ($arr_files as $file) {
 
@@ -93,14 +95,34 @@ class PhotoController extends Controller
 
             if ($validator->passes()) {
 
-                $file_path = $file->store('img/upload', 'public');
+                $orig_ext = $file->guessExtension();
+
+                $file_name = implode(explode($orig_ext, $file->hashName(), -1));
+
+                $big_image = Image::make($file)->heighten(1500)->encode('jpg', 75);
+                Storage::disk('public')->put('img/big/' . $file_name . 'jpg', $big_image);
+
+                $midi_image = Image::make($file)->heighten(350)->encode('jpg', 75);
+                Storage::disk('public')->put('img/midi/' . $file_name . 'jpg', $midi_image);
+
+                $mini_image = Image::make($file)->heighten(110)->encode('jpg', 75);
+                Storage::disk('public')->put('img/mini/' . $file_name . 'jpg', $mini_image);
+
+                $thumb_image = Image::make($file);
+                $thumb_image->height() > $thumb_image->width()
+                                                ? $thumb_image->heighten(110)
+                                                : $thumb_image->widen(138);
+                $thumb_image->resizeCanvas(138, 110, 'center', false, '000000')->encode('jpg');
+                Storage::disk('public')->put('img/thumb/' . $file_name . 'jpg', $thumb_image);
 
                 $photo = new Photo;
-                $photo->src = $file_path;
-                $photo->src_midi = $file_path;
-                $photo->src_mini = $file_path;
-                $photo->src_mini_thumb = $file_path;
+                $photo->src = 'img/big/' . $file_name . 'jpg';
+                $photo->src_midi = 'img/midi/' . $file_name . 'jpg';
+                $photo->src_mini = 'img/mini/' . $file_name . 'jpg';
+                $photo->src_mini_thumb = 'img/thumb/' . $file_name . 'jpg';
                 $photo->save();
+
+                $photos[] = $photo;
 
             } else {
 
@@ -108,9 +130,9 @@ class PhotoController extends Controller
 
             }
 
-            $jsonResponse = ['message' => $err_mess];
+            $jsonResponse = ['uploaded'=>$photos, 'error' => $err_mess];
         }
-        return $photo;
+        return $jsonResponse;
 
 
         /*[
@@ -258,6 +280,11 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
+
+        Storage::disk('public')->delete($photo->src);
+        Storage::disk('public')->delete($photo->src_midi);
+        Storage::disk('public')->delete($photo->src_mini);
+        Storage::disk('public')->delete($photo->src_mini_thumb);
         $photo->delete();
 
         $jsonResponse = ['message' => [__('Delete completed.')] ];
