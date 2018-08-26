@@ -14,18 +14,15 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        return Photo::where('active', true)->select('id','src', 'src_mini_thumb')->get();
-    }
+        $photos = [];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Photo $photo)
-    {
-        return $photo;
+        $photos_collection = Photo::where('active', true)->get();
+
+        foreach ($photos_collection as $photo) {
+
+            $photos[] = $photo->only(['id', 'src_mini_thumb', 'src']);
+        }
+        return $photos;
     }
 
 }

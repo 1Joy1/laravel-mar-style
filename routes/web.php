@@ -18,50 +18,46 @@ Route::get('/test', function () {
     //return view('welcome');
 });
 
-Route::get('/', function () {
-
-    $messages = App\Message::all();
-
-    $groups = App\Group::all();
+Route::get('/', 'MainPageController@index');
 
 
-    foreach ($groups as $group) {
-        $portfol[$group->name] = ['img'=>$group->photo_src, 'name'=>$group->display_name];
-    }
-
-
-    return view('main', ['menu' => [
-                                ['id'=>'menu-main', 'href'=>'#main', 'name'=>'Главная'],
-                                ['id'=>'menu-portfol', 'href'=>'#portfolio', 'name'=>'Портфолио'],
-                                ['id'=>'menu-service', 'href'=>'#services', 'name'=>'Услуги'],
-                                ['id'=>'menu-feedback', 'href'=>'#feadback', 'name'=>'Отзывы'],
-                                ['id'=>'menu-link', 'href'=>'#link', 'name'=>'Ссылки'],
-                            ],
-                         'portfol' => $portfol,
-                         'messages'=> $messages,
-                        ]);
-});
-
-
-
-Route::resource('photo', 'PhotoController', ['only' => ['index', 'show']]);
+Route::resource('photo', 'PhotoController', ['only' => ['index']]);
 
 Route::get('group/{name}/photo', 'GroupController@indexGroupPhoto');
 
-Route::resource('group', 'GroupController', ['only' => ['index', 'show']]);
+Route::resource('group', 'GroupController', ['only' => ['index']]);
 
 Route::resource('message', 'MessageController', ['only' => ['index', 'create', 'store']]);
 
-Auth::routes();
+// Authentication Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-//Route::get('/home', 'HomeController@index')->name('home');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
+
     Route::get('/', 'DashboardController@index')->name('admin.index');
+
     Route::put('photo/{id}/attach/group','PhotoController@attachGroup');
+
     Route::put('photo/{id}/detach/group','PhotoController@detachGroup');
+
+    Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
+    Route::post('register', 'RegisterController@register');
+
+    Route::delete('photo', 'PhotoController@deleteInactivePhotos');
+
     Route::resource('photo', 'PhotoController', ['as'=>'admin', 'except'=>['show', 'create', 'edit']]);
+
     Route::resource('group', 'GroupController', ['as'=>'admin', 'except'=>['destroy', 'show', 'store', 'create', 'edit']]);
+
     Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['show', 'store', 'create', 'edit']]);
 
 });

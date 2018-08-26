@@ -20,25 +20,62 @@ class PhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $photos = Photo::select('id', 'src_mini_thumb', 'active')
-                        ->with(['groups'=>function ($query) {
-                                              $query->select('name');
-                                         }])->get();
-
-        $groups = Group::all();
+        $photos = [];
 
         $group_name =[];
+
+        $groups = Group::all();
 
         foreach ($groups as $group) {
             $group_name[$group['name']] = $group['display_name'];
         }
 
-        //dump($group_name);
 
-        return view('admin_photo', ['photos'=>$photos, 'group_name'=>$group_name]);
+        $query_photos = Photo::select('id', 'mini_photo_path', 'big_photo_path', 'active')
+                            ->with(['groups'=>function ($query) {
+                                                $query->select('name');
+                                            }]);
+
+
+        if (!count($request->all())) {
+
+            $photos_collection = $query_photos->get();
+
+            $view_name = 'admin_photo';
+
+        } else {
+
+            $validator = Validator::make($request->all(), ['ids' => 'array',
+                                                           'ids.*' => 'required|integer',
+                                                          ]);
+            if ($validator->fails()) {
+
+                $jsonResponse = ['message' => $validator->errors()->all()];
+
+                return response($jsonResponse, 400);
+            }
+
+
+            $photos_collection = $query_photos->whereIn('id', $request->ids)->get();
+
+            $view_name = 'admin_return_new_upload_photo';
+        }
+
+        foreach ($photos_collection as $photo) {
+
+            $photo->groups->each(function($group) {
+                $group->setHidden(['pivot', 'photo_src']);
+            });
+
+            $photos[] = $photo->only(['id', 'src_mini', 'src', 'active', 'groups']);
+
+        }
+        //return $photos;
+        return view($view_name, ['photos'=>$photos, 'group_name'=>$group_name]);
     }
+
 
 
     /**
@@ -97,32 +134,32 @@ class PhotoController extends Controller
 
                 $orig_ext = $file->guessExtension();
 
-                $file_name = implode(explode($orig_ext, $file->hashName(), -1));
+                $file_name = implode(explode('.' . $orig_ext, $file->hashName(), -1));
 
                 $big_image = Image::make($file)->heighten(1500)->encode('jpg', 75);
-                Storage::disk('public')->put('img/big/' . $file_name . 'jpg', $big_image);
+                Storage::disk('public')->put('img/gallery/big/' . $file_name . '_big.jpg', $big_image);
 
                 $midi_image = Image::make($file)->heighten(350)->encode('jpg', 75);
-                Storage::disk('public')->put('img/midi/' . $file_name . 'jpg', $midi_image);
+                Storage::disk('public')->put('img/gallery/midi/' . $file_name . '_midi.jpg', $midi_image);
 
                 $mini_image = Image::make($file)->heighten(110)->encode('jpg', 75);
-                Storage::disk('public')->put('img/mini/' . $file_name . 'jpg', $mini_image);
+                Storage::disk('public')->put('img/gallery/mini/' . $file_name . '_mini.jpg', $mini_image);
 
                 $thumb_image = Image::make($file);
                 $thumb_image->height() > $thumb_image->width()
                                                 ? $thumb_image->heighten(110)
                                                 : $thumb_image->widen(138);
                 $thumb_image->resizeCanvas(138, 110, 'center', false, '000000')->encode('jpg');
-                Storage::disk('public')->put('img/thumb/' . $file_name . 'jpg', $thumb_image);
+                Storage::disk('public')->put('img/gallery/thumb/' . $file_name . '_thumb.jpg', $thumb_image);
 
                 $photo = new Photo;
-                $photo->src = 'img/big/' . $file_name . 'jpg';
-                $photo->src_midi = 'img/midi/' . $file_name . 'jpg';
-                $photo->src_mini = 'img/mini/' . $file_name . 'jpg';
-                $photo->src_mini_thumb = 'img/thumb/' . $file_name . 'jpg';
+                $photo->big_photo_path = 'img/gallery/big/' . $file_name . '_big.jpg';
+                $photo->midi_photo_path = 'img/gallery/midi/' . $file_name . '_midi.jpg';
+                $photo->mini_photo_path = 'img/gallery/mini/' . $file_name . '_mini.jpg';
+                $photo->thumb_photo_path = 'img/gallery/thumb/' . $file_name . '_thumb.jpg';
                 $photo->save();
 
-                $photos[] = $photo;
+                $photos[] = $photo->only(['id']);
 
             } else {
 
@@ -132,21 +169,7 @@ class PhotoController extends Controller
 
             $jsonResponse = ['uploaded'=>$photos, 'error' => $err_mess];
         }
-        return $jsonResponse;
-
-
-        /*[
-   [
-   "name" => "hkhj"
-   "status" => "error"
-    "error" => "ghj"
-   ],
-   [
-    'name' => "asdasd"
-    'status' => "ok"
-   ]
-]*/
-
+        return response()->json($jsonResponse);
     }
 
 
@@ -186,7 +209,7 @@ class PhotoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Photo  $photo
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function attachGroup(Request $request, $id)
@@ -232,7 +255,7 @@ class PhotoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Photo  $photo
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function detachGroup(Request $request, $id)
@@ -280,14 +303,38 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
-
-        Storage::disk('public')->delete($photo->src);
-        Storage::disk('public')->delete($photo->src_midi);
-        Storage::disk('public')->delete($photo->src_mini);
-        Storage::disk('public')->delete($photo->src_mini_thumb);
         $photo->delete();
 
         $jsonResponse = ['message' => [__('Delete completed.')] ];
+
+        return $jsonResponse;
+    }
+
+
+    /**
+     * Remove the inactived photo from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+     public function deleteInactivePhotos()
+    {
+        $photos = Photo::where('active', false)->select('id')->get();
+
+        if ($photos->isEmpty()) {
+
+            $jsonResponse = ['message' =>  [ __('No photos to delete.') ] ];
+
+            return response($jsonResponse, 404);
+        }
+
+        $ids = $photos->pluck('id')->toArray();
+
+        $quantity = Photo::destroy($ids);
+
+
+        $messages = [ __('Delete completed.'), __('Deleted :quantity photos', ['quantity' => $quantity]) ];
+
+        $jsonResponse = ['message' =>  $messages , 'deleted' => $ids ];
 
         return $jsonResponse;
     }

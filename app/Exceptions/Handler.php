@@ -49,7 +49,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        //dump($exception);
         if ($exception instanceof ModelNotFoundException) {
 
             $model = $exception->getModel();

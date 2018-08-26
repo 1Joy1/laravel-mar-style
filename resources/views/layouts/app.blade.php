@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/adminka.css') }}" rel="stylesheet">
 </head>
 <body>
 
@@ -49,10 +50,14 @@
                         @auth
                         @if(Route::currentRouteName() == 'admin.photo.index')
 
-                        <li>
-                            <button type="button" class="btn btn-xs btn-primary navbar-btn" data-toggle="modal" data-target="#load_file_modal">
-                            Загрузить фотографии
-                            </button>
+                        <li class="img-butt" data-toggle="modal" data-target="#load_file_modal">
+                            <img  style="width: 30px; margin-top: 12px;" src="/img/cloud-upload.png" title="Загрузить новые фотографии.">
+                            <span class="hidden-lg hidden-md hidden-sm" style="position: absolute;bottom: 0px;margin-left: 7px;color: aliceblue;">Загрузить новые фотографии.</span>
+                        </li>
+
+                        <li class="img-butt" id="dell-all-inactive">
+                            <img  style="width: 21px; margin-top: 17px;" src="/img/recikl.png" title="Удалить все неактивные фотографии.">
+                            <span class="hidden-lg hidden-md hidden-sm" style="position: absolute; bottom: 0px;margin-left: 7px;margin-bottom: -3px;color: aliceblue;">Удалить все неактивные фотографии.</span>
                         </li>
 
 
@@ -61,7 +66,6 @@
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Вход</a></li>
-                            <li><a href="{{ route('register') }}">Регистрация</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -69,11 +73,12 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ route('register') }}">Регистрация нового администратора</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Выход
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -96,6 +101,8 @@
         </div>
 
         @yield('content')
+
+        @include('admin_loader');
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

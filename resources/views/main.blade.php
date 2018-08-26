@@ -27,6 +27,17 @@
     <div class="frame">
         <!--img class="background" src="img/BG_albom.jpg" /-->
         <!--img class="foto" src="img/Nata333x450.png" /-->
+        <div class="admin-link">
+            <a class="hov" href="admin"></a>
+            <div class="menu-el">
+                <span>
+                    @for ($i = 1; $i < 4; $i++)
+                        <img class="sneg{{ $i }}" src="img/sneg.png" />
+                    @endfor
+                    &nbsp;&nbsp;
+                </span>
+            </div>
+        </div>
         <div class="layer2">
             <div class="header">
                 <p class="name">Маршак&nbsp;Наталья</p>

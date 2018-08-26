@@ -3,6 +3,10 @@
 	src: url(../fonts/AuroraScript.ttf);
 }
 
+a {
+	outline: none;
+}
+
 html {
 	width: auto;
 	height: 100%;
@@ -35,6 +39,15 @@ body {
 	width: auto;
 }
 
+.admin-link {
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	z-index:10;
+	top: 20px;
+	left: 20px;
+}
+
 .layer2 {
 	top: 0px;
 	position: absolute;
@@ -58,8 +71,8 @@ body {
 	height: 60%;
 }
 
-/*@media screen and (orientation: landscape) {*/
-  p.name {
+
+p.name {
     font-family: Aurora Script;
 	transform: scaley(1.2);
 	-ms-transform: scaley(1.2);
@@ -73,10 +86,8 @@ body {
 	bottom: 2px;
 	right: 0px;
 	text-align: center;
-	margin: 0px;
-	margin-bottom: 5px;
-	}
-/*}*/
+	margin: 0px 0px 5px 0px;
+}
 
 
 
@@ -162,6 +173,15 @@ body {
 	text-align: center;
 }
 
+.portfolio a {
+	text-decoration: none;
+	color: #ABA089;
+}
+
+.portfolio p {
+	margin: 0px;
+}
+
 .portphol-main {
 	width: 25%;
 	height: 62%;
@@ -174,29 +194,10 @@ body {
 	margin-top: 12%;
 }
 
-.portphol-main a {
-	text-decoration: none;
-	color: #ABA089;
-}
-
-.portphol-main p {
-	text-decoration: none;
-	color: #ABA089;
-}
-
 .portphol-main-all {
 	width: 100%;
 	height: 20%;
 	float: left;
-}
-.portphol-main-all a {
-	text-decoration: none;
-	color: #ABA089;
-}
-
-.portfolio p {
-	color: #ABA089;
-	margin: 0px;
 }
 
 .portphol-main-all a:hover {
@@ -375,6 +376,7 @@ body {
 /********************Блок Меню*********************/
 .top-menu {
 	height: 100%;
+	width: 90%;
 	float: right;
 	position: relative;
 	right: 5%;

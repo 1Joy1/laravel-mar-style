@@ -4,5 +4,7 @@
     "This photo does not belong to this group.": "Эта фотография не принадлежит этой группе.",
     "Photo not found.": "Фотография не найдена.",
     "This photo already in this group.": "Эта фотография уже в этой группе.",
-    "Object [ :name ] not found.": "Объект [ :name ] не найден."
+    "Object [ :name ] not found.": "Объект [ :name ] не найден.",
+    "Deleted :quantity photos": "Удалено :quantity фотографий",
+    "No photos to delete.": "Нет фотографий для удаления."
 }

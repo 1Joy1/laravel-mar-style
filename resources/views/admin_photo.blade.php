@@ -23,7 +23,7 @@
                 <li class="list-group-item">
                     <div id = "photoId_{{ $photo['id'] }}" class="row itemblock">
                         <div class="col-sm-3 photoblock {{ ($photo['active'] == false)?'disabled':'enabled' }}">
-                            <img class="center-block" src="{{ $photo['src_mini_thumb'] }}" />
+                            <img class="center-block cursor-pointer" src="{{ $photo['src_mini'] }}" data-toggle="modal" data-target="#modal_photo" data-src="{{ $photo['src'] }}"/>
                         </div>
                         <div class="col-sm-5 checkblock {{ ($photo['active'] == false)?'disabled':'enabled' }}">
                             <table cellpadding="0" >
@@ -76,16 +76,16 @@
                         </div>
                         <div class="col-sm-4">
                             <p>
-                                    <button type="button" class="deactive-gallery btn btn-sm btn-primary btn-block
+                                    <button type="button" class="deactive-gallery btn btn-sm btn-primary btn-block"
                                     @if($photo['active'] == false)
-                                        disabled
-                                    @endif ">Удалить из галлереи</button>
+                                        disabled="disabled"
+                                    @endif >Удалить из галлереи</button>
                             </p>
                             <p>
-                                    <button type="button" class="active-gallery btn btn-sm btn-primary btn-block
+                                    <button type="button" class="active-gallery btn btn-sm btn-primary btn-block"
                                     @if($photo['active'] == true)
-                                        disabled
-                                    @endif ">Добавить в галлерею</button>
+                                        disabled="disabled"
+                                    @endif>Добавить в галлерею</button>
                             </p>
                             <p>
                                     <button type="button" class="delete-of-storage btn btn-sm btn-danger btn-block">Удалить с сайта</button>
@@ -124,7 +124,7 @@
                         <div class="input-group" style="width: 70%;">
                             <label class="input-group-btn">
                                 <span class="btn btn-primary" title="Выбрать файлы"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;
-                                    Обзор&hellip; <input name='file[]' type="file" style="display: none;" multiple><!--accept="image/jpeg"-->
+                                    Обзор&hellip; <input name='file[]' type="file" style="display: none;" multiple accept="image/jpeg">
                                 </span>
                             </label>
                             <input type="text" class="form-control" placeholder="Файлы не выбраны" readonly data-toggle="tooltip">
@@ -144,11 +144,25 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
 </div>
 
 
+<!-- Модаль Фото-->
+<div class="modal fade" id="modal_photo" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+                <img class="img-responsive center-block" src="" alt="">
+            </div>
+
+        </div>
+    </div>
+</div>
 @endsection

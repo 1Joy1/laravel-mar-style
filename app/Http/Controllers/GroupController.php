@@ -21,21 +21,6 @@ class GroupController extends Controller
     }
 
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Group  $group
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Group $group)
-    {
-
-        return $group;
-    }
-
-
-
     /**
      * Display a listing grouped photo
      * @param int $id
@@ -43,7 +28,15 @@ class GroupController extends Controller
      */
     public function indexGroupPhoto($group_name)
     {
-        return Group::find($group_name)->photos()->where('active', true)->select('src', 'src_mini_thumb')->get();
+        $photos = [];
+
+        $photos_collection = Group::find($group_name)->photos()->where('active', true)->get();
+
+        foreach ($photos_collection as $photo) {
+
+            $photos[] = $photo->only(['id', 'src_mini_thumb', 'src']);
+        }
+        return $photos;
     }
 
 }
