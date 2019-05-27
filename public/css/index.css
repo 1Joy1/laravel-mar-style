@@ -7,6 +7,14 @@ a {
 	outline: none;
 }
 
+a[href^=tel]{
+	color: #fff;
+	outline: none;
+	text-decoration:none;
+	cursor: default;
+	display: block;
+}
+
 html {
 	width: auto;
 	height: 100%;
@@ -16,7 +24,7 @@ html {
 
 body {
 	background: black;
-	margin: 0px;
+	margin: 0;
 	width: auto;
 	height: 100%;
 }
@@ -24,10 +32,7 @@ body {
 .frame {
 	display: none; /*fadeIn in html JQ function)*/
 	height: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: auto;
-	margin-bottom: auto;
+	margin: auto;
 	position: relative;
 	color: #FFF;
 	background-image: url(../img/BG_albom.jpg);
@@ -49,7 +54,7 @@ body {
 }
 
 .layer2 {
-	top: 0px;
+	top: 0;
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -64,7 +69,7 @@ body {
 
 
 .foto {
-	bottom: 0px;
+	bottom: 0;
 	left: 15px;
 	position: absolute;
 	//display: none;
@@ -73,7 +78,7 @@ body {
 
 
 p.name {
-    font-family: Aurora Script;
+    font-family: 'Aurora Script', fantasy;
 	transform: scaley(1.2);
 	-ms-transform: scaley(1.2);
 	-webkit-transform: scaley(1.2);
@@ -84,24 +89,24 @@ p.name {
 	position: absolute;
 	width: 68%;
 	bottom: 2px;
-	right: 0px;
+	right: 0;
 	text-align: center;
-	margin: 0px 0px 5px 0px;
+	margin: 0 0 5px 0;
 }
 
 
 
 
 .profession {
-	font-family: Arial;
+	font-family: Arial, sans-serif;
 	text-shadow: 1px 2px 1px #000, 2px 3px 2px #000;
 	font-size: 1.25em;
 	position: absolute;
 	width: 65%;
-	bottom: 0px;
-	right: 0px;
+	bottom: 0;
+	right: 0;
 	text-align: center;
-	margin: 0px;
+	margin: 0;
 }
 
 .menu {
@@ -137,10 +142,10 @@ p.name {
 }
 
 .main > .wrap > p {
-	font-family: Times New Roman;
+	font-family: 'Times New Roman', serif;
 	position: absolute;
 	font-size: 1.2em;
-	right: 0px;
+	right: 0;
 }
 
 .servis_description {
@@ -168,7 +173,7 @@ p.name {
 	height: 57%;
 	position: absolute;
 	top: 34%;
-	font-family: Times New Roman;
+	font-family: 'Times New Roman', serif;
 	font-style: normal;
 	text-align: center;
 }
@@ -179,7 +184,7 @@ p.name {
 }
 
 .portfolio p {
-	margin: 0px;
+	margin: 0;
 }
 
 .portphol-main {
@@ -201,12 +206,12 @@ p.name {
 }
 
 .portphol-main-all a:hover {
-	text-shadow: 1px 1px 0px #000, 2px 2px 1px #000;
+	text-shadow: 1px 1px 0 #000, 2px 2px 1px #000;
 	color: #ffffff;
 }
 
 .portphol-main a:hover p {
-	text-shadow: 1px 1px 0px #000, 2px 2px 1px #000;
+	text-shadow: 1px 1px 0 #000, 2px 2px 1px #000;
 	color: #ffffff;
 }
 
@@ -219,10 +224,10 @@ p.name {
 	height: 57%;
 	position: absolute;
 	top: 34%;
-	font-family: Times New Roman;
+	font-family: 'Times New Roman', serif;
 	font-style: italic;
 	font-size: 1em;
-	text-shadow: 1px 1px 0px #000, 2px 2px 1px #000;
+	text-shadow: 1px 1px 0 #000, 2px 2px 1px #000;
 }
 
 .uslugi {
@@ -251,7 +256,7 @@ p.name {
 	line-height: 100%;
 	float: right;
 	white-space: nowrap;
-	margin-right: 0,7em;
+	margin-right: 0.7em;
 }
 
 
@@ -263,7 +268,7 @@ p.name {
 	position: absolute;
 	top: 34%;
 	display: none;
-	font-family: Times New Roman;
+	font-family: 'Times New Roman', serif;
 	text-align: center;
 }
 
@@ -279,10 +284,11 @@ p.name {
 }
 
 .feadback #leave_feedback a:hover{
-	text-shadow: 1px 1px 0px #000, 2px 2px 1px #000;
+	text-shadow: 1px 1px 0 #000, 2px 2px 1px #000;
 }
 
 #comments_block {
+	outline: none;
 	text-align: left;
 	font-size:0.8em;
 	height:85%;
@@ -321,7 +327,7 @@ p.name {
 	position: absolute;
 	top: 34%;
 	display: none;
-	font-family: Times New Roman;
+	font-family: 'Times New Roman', serif;
 	font-size: 1em;
 	text-shadow: 1px 1px 1px #000, 1px 1px 1px #000;
 }
@@ -381,7 +387,7 @@ p.name {
 	position: relative;
 	right: 5%;
 	z-index: 3;
-	font-family: Times New Roman;
+	font-family: 'Times New Roman', serif;
 }
 
 .top-menu > div {
@@ -478,11 +484,11 @@ p.name {
 	position: absolute;
 	width: 100%;
 	height: 9%;
-	bottom: 0px;
+	bottom: 0;
 }
 
 .futer > p {
-	font-family: Times New Roman;
+	font-family: 'Times New Roman', serif;
 	text-shadow: 1px 1px 1px #000, 1px 1px 1px #000;
 	font-size: 1.2em;
 	font-style: italic;
@@ -490,7 +496,7 @@ p.name {
 	right: 32%;
 	text-align: center;
 	position: absolute;
-	margin: 0px;
+	margin: 0;
 }
 
 
@@ -529,7 +535,7 @@ p.name {
 	}
 	p.name{
 		width: 100%;
-		margin-bottom: 0px;
+		margin-bottom: 0;
 		margin-top: 50px;
 		bottom: inherit;
 	}
@@ -546,7 +552,7 @@ p.name {
 		top: 30%;
 	}
 	.portfolio > .wrap{
-		right: 0%;
+		right: 0;
 		margin: auto;
 		position: relative;
 		width: 90%;
@@ -561,7 +567,7 @@ p.name {
 		top: 30%;
 	}
 	.feadback > .wrap{
-		right: 0%;
+		right: 0;
 		margin: auto;
 		position: relative;
 		width: 90%;
@@ -574,7 +580,7 @@ p.name {
 		top: 30%;
 	}
 	.foto{
-		bottom: 0px;
+		bottom: 0;
 		left: 15px;
 		position: absolute;
 		display: block;
@@ -618,7 +624,7 @@ p.name {
 		white-space: inherit;
 	}
 	.pml1{
-		margin-left: 0%;
+		margin-left: 0;
 	}
 	.pml2{
 		margin-left: 18%;

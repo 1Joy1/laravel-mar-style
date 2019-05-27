@@ -6,7 +6,6 @@ use App\Photo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Route;
 use Validator;
 use App\Group;
 
@@ -17,8 +16,9 @@ class PhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @param  \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response | \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -33,9 +33,9 @@ class PhotoController extends Controller
         }
 
 
-        $query_photos = Photo::select('id', 'mini_photo_path', 'big_photo_path', 'active')
+        $query_photos = Photo::select(['id', 'mini_photo_path', 'big_photo_path', 'active'])
                             ->with(['groups'=>function ($query) {
-                                                $query->select('name');
+                                                $query->select(['name']);
                                             }]);
 
 
@@ -72,7 +72,7 @@ class PhotoController extends Controller
             $photos[] = $photo->only(['id', 'src_mini', 'src', 'active', 'groups']);
 
         }
-        //return $photos;
+
         return view($view_name, ['photos'=>$photos, 'group_name'=>$group_name]);
     }
 
@@ -86,8 +86,8 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
-
-        $validator = Validator::make($request->all(), ['file' => 'required']);
+        /*$messages = [ 'uploaded' => 'Засада :attribute или нескольких файлов.',];
+        $validator = Validator::make($request->all(), ['file' => 'required'], $messages);
 
         // Реализуем поддержку multiple и простой формы загрузки файла
         $validator->sometimes('file.*', 'file', function($input) {
@@ -104,10 +104,17 @@ class PhotoController extends Controller
             $jsonResponse = ['message' => $validator->errors()->all() ];
 
             return response($jsonResponse, 400);
-        }
+        }*/
 
 
         $files = $request->allFiles();
+        $jsonResponse = [];
+
+        if (!count($files)) {
+            $jsonResponse = ['message' => "Поле файл обязательно для заполнения.",];
+
+            return response()->json($jsonResponse, 400);
+        }
 
         // Реализуем поддержку multiple и простой формы загрузки файла
         $arr_files = is_array($files['file']) ? $files['file'] : [$files['file']];
@@ -124,6 +131,7 @@ class PhotoController extends Controller
                           'mimes' => 'Файл ' . $origin_file_name . ' должен быть файлом одного из следующих типов: :values.',
                           'max' => 'Размер файла ' . $origin_file_name . ' не может быть более :max Килобайт(а).',
                           'dimensions' => 'Файл ' . $origin_file_name . ' имеет недопустимые размеры изображения.',
+                          'uploaded' => 'Згрузка файла ' . $origin_file_name . ' не удалась. Возможно превышен максимальный размер файла.',
                         ];
 
             $validator = Validator::make(['img_file' => $file], [
@@ -200,7 +208,7 @@ class PhotoController extends Controller
 
         $photo->save();
 
-        return $photo;
+        return response()->json($photo);
     }
 
 
@@ -246,7 +254,7 @@ class PhotoController extends Controller
 
         $photo->groups()->attach($request['group_name']);
 
-        return $photo->groups;
+        return response()->json($photo->groups);
     }
 
 
@@ -290,7 +298,7 @@ class PhotoController extends Controller
 
         $photo->groups()->detach($request['group_name']);
 
-        return $photo->groups;
+        return response()->json($photo->groups);
     }
 
 
@@ -299,6 +307,7 @@ class PhotoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Photo  $photo
+     * @throws \Exception
      * @return \Illuminate\Http\Response
      */
     public function destroy(Photo $photo)
@@ -307,7 +316,7 @@ class PhotoController extends Controller
 
         $jsonResponse = ['message' => [__('Delete completed.')] ];
 
-        return $jsonResponse;
+        return response()->json($jsonResponse);
     }
 
 
@@ -336,6 +345,6 @@ class PhotoController extends Controller
 
         $jsonResponse = ['message' =>  $messages , 'deleted' => $ids ];
 
-        return $jsonResponse;
+        return response()->json($jsonResponse);
     }
 }

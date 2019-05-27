@@ -1,15 +1,18 @@
-<link href="css/modalform.css" rel="stylesheet">
-    <script type="text/javascript">
-        function backToForm(){
-            window.parent.$("form").css('display', 'block');
-            window.parent.$("iframe").css('display', 'none');
-        }
-    </script>
-    <center><h3 id="form_req" style="color:#fff;">Отзыв не отправлен. <br \> Не заполнены все поля.</h3>
-        <h5 style="color:#fff;">
-            @foreach ($errors->all() as $message)
-                {{ $message }} <br>
-            @endforeach
+<link href="{{ asset('css/modalform.css') }}" rel="stylesheet">
 
-        </h5>
-    <button id="form_back" onclick = "backToForm();">Назад</button></center>
+<script type="text/javascript">
+    function backToForm(){
+        window.parent.$("form").css('display', 'block');
+        window.parent.$("iframe").css('display', 'none');
+    }
+</script>
+
+<h3 id="form_req" style="color:#fff; text-align:center">Отзыв не отправлен. <br> Не заполнены все поля.</h3>
+<div style="color:#fff">
+    <ul style="padding: 0 0 0 10px;">
+    @foreach ($errors->all() as $message)
+        <li>{{ $message }}</li>
+    @endforeach
+    </ul>
+</div>
+<button id="form_back" onclick = "backToForm();">Назад</button>

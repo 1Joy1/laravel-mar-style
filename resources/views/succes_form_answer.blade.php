@@ -1,1 +1,1 @@
-<center><h3 id='form_req'; style='color:#fff'; margin: auto;>Отзыв отправлен</h3></center>
+<h3 id="form_req" style="color:#fff; margin:auto; text-align:center">Отзыв отправлен</h3>

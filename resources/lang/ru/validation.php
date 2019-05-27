@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'custom'               => [
+    'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
@@ -135,7 +135,7 @@ return [
     |
     */
 
-    'attributes'           => [
+    'attributes' => [
         'file' => 'файл',
         //'file.*' => 'файл',
         'display_name' => 'имя группы',

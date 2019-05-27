@@ -4,7 +4,7 @@
 <li class="list-group-item">
     <div id = "photoId_{{ $photo['id'] }}" class="row itemblock">
         <div class="col-sm-3 photoblock {{ ($photo['active'] == false)?'disabled':'enabled' }}">
-            <img class="center-block" src="{{ $photo['src_mini'] }}" />
+            <img class="center-block cursor-pointer" src="{{ $photo['src_mini'] }}" data-toggle="modal" data-target="#modal_photo" data-src="{{ $photo['src'] }}"/>
         </div>
         <div class="col-sm-5 checkblock {{ ($photo['active'] == false)?'disabled':'enabled' }}">
             <table cellpadding="0" >

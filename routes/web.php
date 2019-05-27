@@ -10,24 +10,27 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//use App\Group;
+
 Route::get('/test', function () {
-    echo "<pre>";
     //echo App::getLocale();
-    //print_r(App\Message::where("id", 3)->select('text')->get()) ;
-    //return view('welcome');
+    //print_r(App\Message::where("id", 3)->select('text')->get());
+
 });
 
+Route::get('/phpinfo', function() {
+    dump(Route::getMiddleware());
+    phpinfo();
+});
+
+
+// Main Page Routes...
 Route::get('/', 'MainPageController@index');
-
-
-Route::resource('photo', 'PhotoController', ['only' => ['index']]);
-
-Route::get('group/{name}/photo', 'GroupController@indexGroupPhoto');
-
-Route::resource('group', 'GroupController', ['only' => ['index']]);
-
+Route::get('photo', 'PhotoController@index');
+//TODO: Kill this route & dependent controller
+//Route::get('group', 'GroupController@index');
+Route::get('group/{name}/photo', 'PhotoController@indexGroupPhoto');
 Route::resource('message', 'MessageController', ['only' => ['index', 'create', 'store']]);
+
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -41,23 +44,26 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
 
-    Route::get('/', 'DashboardController@index')->name('admin.index');
 
-    Route::put('photo/{id}/attach/group','PhotoController@attachGroup');
+// Admin Panel Routes...
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function() {
 
-    Route::put('photo/{id}/detach/group','PhotoController@detachGroup');
+    Route::get('/', function () {
+        return redirect('admin/photo');
+    })->name('admin.index');
 
+    // Register New Administrators Routes...
     Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
     Route::post('register', 'RegisterController@register');
 
+
+    // Manage Photo, GroupPhoto and MessagesClients Routes...
+    Route::put('photo/{id}/attach/group','PhotoController@attachGroup');
+    Route::put('photo/{id}/detach/group','PhotoController@detachGroup');
     Route::delete('photo', 'PhotoController@deleteInactivePhotos');
-
     Route::resource('photo', 'PhotoController', ['as'=>'admin', 'except'=>['show', 'create', 'edit']]);
-
     Route::resource('group', 'GroupController', ['as'=>'admin', 'except'=>['destroy', 'show', 'store', 'create', 'edit']]);
-
     Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['show', 'store', 'create', 'edit']]);
 
 });

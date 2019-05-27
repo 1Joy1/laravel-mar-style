@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Group;
-use Illuminate\Http\Request;
 
 
 class GroupController extends Controller
 {
+    //TODO: Kill this class & dependent route
+
     /**
      * Display a listing of the resource.
      *
@@ -17,13 +18,13 @@ class GroupController extends Controller
     {
         $groups = Group::all();
 
-        return $groups;
+        return response()->json($groups);
     }
 
 
     /**
      * Display a listing grouped photo
-     * @param int $id
+     * @param string $group_name
      * @return \Illuminate\Http\Response
      */
     public function indexGroupPhoto($group_name)
@@ -36,7 +37,7 @@ class GroupController extends Controller
 
             $photos[] = $photo->only(['id', 'src_mini_thumb', 'src']);
         }
-        return $photos;
+        return response()->json($photos);
     }
 
 }

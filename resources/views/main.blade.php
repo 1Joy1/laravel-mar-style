@@ -5,34 +5,32 @@
 
     <title>Маршак Наталья стилист-визажист | Свадебные, вечерние причёски и макияж | Одесса</title>
 
-    <link href="css/index.css" rel="stylesheet">
-    <link href="css/modalform.css" rel="stylesheet">
-    <link href="css/lightgallery.css" rel="stylesheet">
-    <link href="img/favicon.png" rel="icon">
+    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/modalform.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/lightgallery.css') }}" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="icon">
 
-    <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
-    <script type="text/javascript" src="js/flowtype.js"></script>
-    <script type="text/javascript" src="js/jquery.nicescroll.min.3.6.6.js"></script>
-    <script type="text/javascript" src="js/device.min.js"></script>
-    <script type="text/javascript" src="js/lightgallery.min.js"></script>
-    <script type="text/javascript" src="js/lg-thumbnail.min.js"></script>
-    <script type="text/javascript" src="js/jquery.mousewheel_3.1.13.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-2.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/flowtype.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.nicescroll.min.3.6.6.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/device.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lightgallery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lg-thumbnail.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.mousewheel_3.1.13.min.js') }}"></script>
 
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="{{ asset('js/index.js?12') }}"></script>
 
 
 </head>
 
 <body>
     <div class="frame">
-        <!--img class="background" src="img/BG_albom.jpg" /-->
-        <!--img class="foto" src="img/Nata333x450.png" /-->
         <div class="admin-link">
-            <a class="hov" href="admin"></a>
+            <a class="hov" href="{{ route('admin.index') }}"></a>
             <div class="menu-el">
                 <span>
                     @for ($i = 1; $i < 4; $i++)
-                        <img class="sneg{{ $i }}" src="img/sneg.png" />
+                        <img class="sneg{{ $i }}" src="{{ asset('img/sneg.png') }}" />
                     @endfor
                     &nbsp;&nbsp;
                 </span>
@@ -53,7 +51,7 @@
                         <div class="menu-el">
                             <span>
                                 @for ($i = 1; $i < 4; $i++)
-                                    <img class="sneg{{ $i }}" src="img/sneg.png" />
+                                    <img class="sneg{{ $i }}" src="{{ asset('img/sneg.png') }}" />
 
                                 @endfor
                                 {{ $item['name'] }}
@@ -68,7 +66,10 @@
             <div class="main">
                 <div class="wrap">
                     <p class="servis_description">Свадебные, вечерние причёски и макияж.</p>
-                    <p class="tel">тел. (067) 710-48-73<br>(048) 700-04-06</p>
+                    <p class="tel">
+                        <a href="tel:+380677104873">тел. (067) 710-48-73</a>
+                        <a href="tel:+380487000406">(048) 700-04-06</a>
+                    </p>
                 </div>
             </div>
 
@@ -78,7 +79,7 @@
                 @foreach($portfol as $field=>$value)
 
                     <div class="portphol-main">
-                        <a href="#" onClick="getGalleryJSON(event, '{{ $field }}')">
+                        <a href="#" data-name="{{ $field }}">
                         <img src="{{ $value['img'] }}" />
                         <p>{{ $value['name'] }}</p></a>
                     </div>
@@ -87,7 +88,7 @@
 
                     <div class="portphol-main-all">
 
-                        <p><a href="#" onClick="getGalleryJSON(event, 'all')">Просмотреть всё.</a></p>
+                        <p><a href="#" data-name="all">Просмотреть всё.</a></p>
                     </div>
                 </div>
 

@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use Illuminate\Http\Request;
-use Route;
 
-use Validator;
+use  Validator;
 
 class MessageController extends Controller
 {
@@ -51,9 +50,9 @@ class MessageController extends Controller
         }
 
         $message = new Message;
-        $message->name = $request->name;
-        $message->email = $request->email;
-        $message->text = $request->message;
+        $message->name = $request->post('name');
+        $message->email = $request->post('email');
+        $message->text = $request->post('message');
         $message->ip = $request->ip();
 
         $message->save();
@@ -62,5 +61,3 @@ class MessageController extends Controller
     }
 
 }
-
-

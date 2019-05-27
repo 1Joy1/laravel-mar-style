@@ -69,7 +69,7 @@ class GroupController extends Controller
 
         $group->save();
 
-        return $group;
+        return response()->json($group);
     }
 
 }
